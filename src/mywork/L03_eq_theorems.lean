@@ -30,6 +30,26 @@ conjecture in the formal language of predicate
 logic. We'll use an implementation of a specific
 version of predicate logic provided by the Lean
 Prover.
+-/
+universe u 
+def eq_symm : ∀  ( α : Sort u) ( x y : α), x = y → y = x  := 
+begin
+  intros α x y h_eq,
+  rw h_eq,
+end
+
+axioms (foo bar : nat) (h : foo  = bar)
+
+example 
+
+
+/- λ α x y h_eq,
+  let pf := _ in _ 
+
+eq.subst h_eq
+-/
+
+/-
 
 Second, you must understand how to construct 
 proofs of such propositions, if proofs actually
