@@ -191,8 +191,6 @@ uncommenting and completing the following
 definition.
 -/
 
-and
-
 --Using and_assoc' since and_assoc appears to be used elsewhere
 theorem and_assoc' (P Q Z : Prop) (pq_z : (P ∧ Q) ∧ Z) : P ∧ Q ∧ Z :=
   and.intro 
