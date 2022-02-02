@@ -32,7 +32,7 @@ version of predicate logic provided by the Lean
 Prover.
 -/
 universe u 
-def eq_symm : ∀  ( α : Sort u) ( x y : α), x = y → y = x  := 
+def eq_symm' : ∀  ( α : Sort u) ( x y : α), x = y → y = x  := 
 begin
   intros α x y h_eq,
   rw h_eq,
@@ -40,9 +40,25 @@ end
 
 axioms (foo bar : nat) (h : foo  = bar)
 
-example 
+def xyz : bar = foo := eq_symm' nat foo bar h 
+
+#check xyz
 
 
+def eq_trans' : ∀ (α : Sort u) (a b c : α),  a = b → b = c → a = c := 
+begin
+  intros α a b c h_ab h_bc,
+  rw <- h_ab at h_bc,
+  assumption
+end 
+
+example : ∀ (α : Sort u) (a b c : α),  a = b → b = c → a = c := 
+begin
+  intros α a b c h_ab h_bc,
+  rw h_ab,
+  apply h_bc,
+  --assumption
+end 
 /- λ α x y h_eq,
   let pf := _ in _ 
 
