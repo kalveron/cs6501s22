@@ -159,6 +159,12 @@ and_elim_right.
 -/ 
 
 -- Here.
+def and_elim_right
+  (P Q : Prop)
+  (pq : P ∧ Q) : 
+  Q
+  :=
+  and.elim_right pq
 
 /-
 From a proof of P ∧ Q we can derive a proof 
