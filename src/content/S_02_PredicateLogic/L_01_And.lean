@@ -270,4 +270,76 @@ theorem and_assoc' (P Q Z : Prop) (pq_z : (P ∧ Q) ∧ Z) : P ∧ Q ∧ Z :=
   (and.intro (and.right(and.left(pq_z))) (and.right(pq_z)))    -- Q ∧ Z
    
 
+--TOP DOWN
+example : ∀  (P Q Z : Prop), (P ∧ (Q ∧ Z)) → ((P ∧ Q) ∧ Z) :=
+begin
+  intros P Q Z h,
+  apply and.intro 
+    (and.intro
+      (and.elim_left h)
+      (h.right.left)
+      )
+    (h.right.right),
+end 
+
+--BOTTOM UP
+example : ∀  (P Q Z : Prop), (P ∧ (Q ∧ Z)) → ((P ∧ Q) ∧ Z) :=
+begin
+  intros P Q Z h,
+  have p : P := h.left,
+  have q : Q := h.right.left,
+  have z : Z := h.right.right,
+  have pq : P ∧ Q := and.intro p q,
+  exact and.intro pq z,
+end
+
+namespace  hidden
+
+inductive and (P Q : Prop) : Prop 
+|intro (p : P) (q : Q) : and
+
+def elim_left : (and P Q) → P
+|(and.intro x y) := x
+
+def elim_right : (and P Q) → Q
+|(and.intro x y) := y
+
+axiom h : and P Q
+
+#check h
+
+def negate : bool → bool 
+| ff := tt
+| tt := ff
+
+example : negate tt = ff := rfl
+example : negate ff = tt := rfl
+ 
+def posnat : nat → option nat
+| nat.zero := none
+| n :=  some n
+
+
+#reduce posnat 0
+
+#reduce posnat 5
+#check @eq
+
+/-
+P ↔ Q
+iff.intro ( P → Q) ( Q → P)
+
+-/
+example : P ↔ Q :=
+begin
+  apply iff.intro _ _,
+end
+
+example : P ↔ Q :=
+begin
+  split,
+end
+
+
+end hidden
 
